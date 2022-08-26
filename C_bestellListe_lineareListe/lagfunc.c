@@ -26,7 +26,28 @@ void prtOrderList(struct artlst_t *wrzl) {
     const char *line2  = "------------\n";
     const char *form   = " %3d       %3d     %-18s  %3d   %8.2f   %9.2f\n";
     const char *sform  = "                                  Summe:  %14.2f\n\n";
-    
+    int lfdnr = 0;
+    float gesamtpreis = 0.0;
+    float gesamtartikelpreis;
+    int bestellmenge;
+    struct artlst_t *palt;
+    printf(ueber);
+    printf(ueber2);
+    printf(line);
+    printf(line2);
+    palt = wrzl;
+    while (palt != NULL) {
+        bestellmenge = ANZ * palt->sArtikel.min - palt->sArtikel.bestand;
+        gesamtartikelpreis = bestellmenge * palt->sArtikel.preis;
+        gesamtpreis += gesamtartikelpreis;
+        printf(form, ++lfdnr, palt->sArtikel.artnr, palt->sArtikel.artname, 
+        bestellmenge, palt->sArtikel.preis, gesamtartikelpreis);
+        palt = palt->next;
+    }
+    printf(line); 
+    printf(line2);
+    printf("     "); 
+    printf(sform, gesamtpreis);
 }
 
 void remOrderList(struct artlst_t *wrzl) {

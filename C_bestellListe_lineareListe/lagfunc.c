@@ -15,8 +15,43 @@ struct artlst_t *makeOrderList(char *quellPfad) {
     if((fqZeig = fopen(quellPfad, "rb")) == NULL) {
         printf("%s kann nicht geoeffnet werden!\n", quellPfad);
     } else {
-
+        while (fread(&e1, sizeof(struct artikel_t), 1, fqZeig) > 0 && speicherVorh) {
+            if (e1.bestand < e1.min) {
+                erg = putInList(root, e1);
+                if (erg == NULL) {
+                    printf("Speicher nicht ausreichend!!!\n");
+                    speicherVorh = 0;   // Speicher fehlt
+                } else {
+                    root = erg;
+                }
+            }
+        }
+        fclose(fqZeig);
     }
+    return root;
+}
+
+static struct artlst_t *putInList(struct artlst_t *wrzl, struct artikel_t sG) {
+    struct artlst_t *pRet = wrzl;
+    struct artlst_t *pakt, *palt;
+
+    pakt = malloc(sizeof(struct artlst_t));
+    if (pakt == NULL) {
+        pRet = NULL;
+    } else {
+        pakt->sArtikel = sG;
+        pakt->next = NULL;
+        if (wrzl == NULL) {
+            pRet = pakt;
+        } else {
+            palt = wrzl;
+            while (palt->next != NULL) {
+                palt = palt->next;
+            }
+            palt->next = pakt;
+        }
+    }
+    return pRet;
 }
 
 void prtOrderList(struct artlst_t *wrzl) {

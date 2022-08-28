@@ -2,14 +2,14 @@
 
 class KomponentenList {
     public:
-        KomponentenList() {}
+        KomponentenList() : counter{0}, first{nullptr} {}
         ~KomponentenList();
         int size() const { return counter; }
         const Komponente *at(int pos);
         int erase(int pos);
         void push_back(Komponente *k);
-        KomponentenElement *end();
-        KomponentenElement *begin();
+        KomponentenElement *end() const { return nullptr; }
+        KomponentenElement *begin() const { return first; }
 
     private:
         int counter;

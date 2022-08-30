@@ -25,9 +25,11 @@ int main() {
         //liste->getElement(i)->k->output(std::cout);
     }
 */
+    std::cout << "Ausgabe der Liste" << std::endl;
     int grenze = liste->size();
     for (int i = 0; i < grenze; ++i) {
         liste->at(i)->output(std::cout);
+        std::cout << std::endl;
     }
 
     return 0;

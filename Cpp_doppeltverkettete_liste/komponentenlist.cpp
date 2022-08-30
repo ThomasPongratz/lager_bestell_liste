@@ -28,10 +28,25 @@ const Komponente* KomponentenList::at(int pos) const {
 
 int KomponentenList::erase(int pos) {
     int returnPos = -1;
-    if (first != nullptr) {
+    KomponentenElement *pElement = getElement(pos);
+    if (pElement != end()) {
+        KomponentenElement *beforeElement = pElement->before;
+        KomponentenElement *nextElement = pElement->next;
+        if (beforeElement != end()) {
+            nextElement->before = beforeElement;
+        }
+        if (nextElement != end()) {
+            beforeElement->next = nextElement;
+        }
+        if (pElement == first) {
+            first = pElement->next;
+            if (first != end()) {
+                first->before = end();
+            }
+        }
+        delete pElement;
+        --counter;
         returnPos = pos;
-        KomponentenElement *pElement = getElement(pos);
-        
     }
     return returnPos;
 }

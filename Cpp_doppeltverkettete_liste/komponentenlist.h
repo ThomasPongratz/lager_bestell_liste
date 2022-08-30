@@ -5,7 +5,7 @@ class KomponentenList {
         KomponentenList() : counter{0}, first{nullptr} {}
         ~KomponentenList();
         int size() const { return counter; }
-        const Komponente *at(int pos);
+        const Komponente *at(int pos) const;
         int erase(int pos);
         void push_back(Komponente *k);
         KomponentenElement *end() const { return nullptr; }

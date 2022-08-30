@@ -27,8 +27,13 @@ const Komponente* KomponentenList::at(int pos) const {
 }
 
 int KomponentenList::erase(int pos) {
-    KomponentenElement *pElement = getElement(pos);
-
+    int returnPos = -1;
+    if (first != nullptr) {
+        returnPos = pos;
+        KomponentenElement *pElement = getElement(pos);
+        
+    }
+    return returnPos;
 }
 
 void KomponentenList::push_back(Komponente *k) {
